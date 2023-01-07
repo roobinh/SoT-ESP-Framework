@@ -14,7 +14,9 @@ from pyglet.text import Label
 # True=Enabled & False=Disabled for each relevant config items
 CONFIG = {
     "CREWS_ENABLED": True,
-    "SHIPS_ENABLED": False
+    "SHIPS_ENABLED": True,
+    "ITEMS_ENABLED": False,
+    "PLAYERS_ENABLED": True
 }
 
 # Used to track unique crews
@@ -183,7 +185,7 @@ def initialize_window():
     """
     Initializes our window with a given label
     """
-    b_label = Label(b64decode('RG91Z1RoZURydWlkJ3MgRVNQIEZyYW1ld29yaw==').decode("utf-8"),
-                    x=SOT_WINDOW_W - 537, y=10, font_size=24, bold=True,
+    b_label = Label("SOT ESP Framework",
+                    x=SOT_WINDOW_W - 300, y=10, font_size=14, bold=True,
                     color=(127, 127, 127, 65), batch=main_batch)
     return b_label

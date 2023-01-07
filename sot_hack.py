@@ -10,6 +10,8 @@ from memory_helper import ReadMemory
 from mapping import ship_keys
 from helpers import OFFSETS, CONFIG, logger
 from Modules.ship import Ship
+from Modules.item import Item
+from Modules.player import Player
 from Modules.crews import Crews
 
 
@@ -196,6 +198,23 @@ class SoTMemoryReader:
                 #     continue
                 # else:
                 self.display_objects.append(ship)
+
+            # Show other players
+            if CONFIG.get('PLAYERS_ENABLED') and raw_name not in ship_keys:
+                if "BP_PlayerPirate" in raw_name:
+                    item = Player(self.rm, actor_id, actor_address, self.my_coords,
+                                raw_name)
+                    self.display_objects.append(item)
+
+            # Add all other actors
+            if CONFIG.get('ITEMS_ENABLED') and raw_name not in ship_keys:
+                # print(raw_name)
+                if raw_name[:2] == "BP":
+                    item = Item(self.rm, actor_id, actor_address, self.my_coords,
+                                raw_name)
+                    self.display_objects.append(item)
+
+            
 
             # If we have the crews data enabled in helpers.py and the name
             # of the actor is CrewService, we create a class based on that Crew
